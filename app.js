@@ -2,6 +2,7 @@ const express = require("express");
 const sequelize = require("./config/database");
 const urlRoutes = require("./routes/urlRoutes");
 const cors = require("cors");
+const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.set("trust proxy", process.env.NODE_ENV === "production" ? 1 : 0);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/api", urlRoutes);
+app.use(errorHandler);
 
 module.exports = app;

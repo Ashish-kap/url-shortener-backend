@@ -1,10 +1,7 @@
-const {
-  Model
-} = require('sequelize');
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Url extends Model {
-    static associate(models) {
-    }
+    static associate(models) {}
   }
   Url.init(
     {
@@ -28,8 +25,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Url",
+      tableName: "Urls",
+      freezeTableName: true,
+      timestamps: true,
+      createdAt: "createdAt",
+      updatedAt: "updatedAt",
+      underscored: false,
     }
   );
   return Url;
 };
-
