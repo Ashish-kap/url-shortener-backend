@@ -7,6 +7,10 @@ const shortenLimiter = rateLimit({
     "Too many URL shorten attempts from this IP, please try again after an hour",
   standardHeaders: true,
   legacyHeaders: false,
+  keyGenerator: (req) => {
+    return req.headers["x-forwarded-for"] || req.ip;
+  },
+  validate: { trustProxy: true },
 });
 
 module.exports = { shortenLimiter };
