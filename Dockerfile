@@ -1,4 +1,3 @@
-# Dockerfile
 FROM node:18-alpine
 
 RUN apk add --no-cache postgresql-client
@@ -6,9 +5,14 @@ RUN apk add --no-cache postgresql-client
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install && npm sequelize-cli init && npm run migrate && npm ci --only=production
+
+RUN npm install
 
 COPY . .
+
+RUN npx sequelize-cli db:migrate
+
+RUN npm prune --production
 
 EXPOSE 3000
 CMD ["npm", "start"]
