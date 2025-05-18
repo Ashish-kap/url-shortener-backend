@@ -6,7 +6,7 @@ RUN apk add --no-cache postgresql-client
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install && npm run migrate && npm ci --only=production
+RUN npm install && npx sequelize-cli init && npm run migrate && npm ci --only=production
 
 COPY . .
 
